@@ -1,13 +1,22 @@
+
 import { useParams } from "react-router-dom"
 export default function RecipePage({recipes}){
     const {slug} = useParams()
-    const recipe = recipes.find((rec) => rec?.recipe?.label.replace(/\s/g, "-").toLowerCase() === slug)
-    console.log(recipe)
+    const recipe = recipes.find((rec) => rec.slug === slug)
 
     return (
         <section>
-            <h1>{recipe?.recipe.label}</h1>
-            <img src={recipe?.recipe?.image} alt={recipe?.recipe.label} />
+            <h1>{recipe.title}</h1>
+            <ul>
+                {recipe.ingredients.map((ingredient, index) =>(
+                <li key={"ing"+index}>{ingredient}</li>
+            ))}
+            </ul>
+            <ol>
+                {recipe.process.map((step, index) =>(
+                    <li key={"step"+index}>{step}</li>
+                ))}
+            </ol>
         </section>
     )
 }
